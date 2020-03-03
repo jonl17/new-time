@@ -1,19 +1,17 @@
 <script>
   import { tasks } from "../../store.js";
-  export let taskId;
+  import { createEventDispatcher } from "svelte";
 
-  const removeTask = id => {
-    let newList = [];
-    $tasks.forEach(task => {
-      if (task.id !== taskId) {
-        newList.push(task);
-      }
-    });
-    tasks.set(newList);
+  const dispatch = createEventDispatcher();
+
+  export let id;
+
+  const remove = () => {
+    dispatch("remove", { id });
   };
 </script>
 
-<i on:click="{removeTask(taskId)}" class="gg-trash"></i>
+<i on:click="{remove}" class="gg-trash"></i>
 
 <link href="https://css.gg/trash.css" rel="stylesheet" />
 <style>

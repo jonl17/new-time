@@ -1,8 +1,26 @@
 <script>
-  let name;
+  import { firestore } from "../../service/firebase.js";
+  import { collectionData } from "rxfire/firestore";
+  import { startWith } from "rxjs/operators";
+
+  function updateName() {
+    firestore
+      .collection("tasks")
+      .doc(id)
+      .update({ name: name });
+  }
+
+  export let id;
+  export let name;
 </script>
 
-<input placeholder="Project name" type="text" name="name" bind:value="{name}" />
+<input
+  on:change="{updateName}"
+  placeholder="Project name"
+  type="text"
+  name="name"
+  bind:value="{name}"
+/>
 
 <style>
   ::placeholder {

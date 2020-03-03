@@ -1,7 +1,6 @@
 <script>
   import { onDestroy } from "svelte";
   import { secondsToHms } from "../../functions";
-  let time = 0;
 
   let on = false;
 
@@ -11,7 +10,8 @@
     on ? (on = false) : (on = true);
   }
 
-  onDestroy(() => clearInterval(interval));
+  export let id;
+  export let time;
 </script>
 
 <p>{time === 0 ? "0s" : secondsToHms(time)}</p>

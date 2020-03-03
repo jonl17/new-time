@@ -5,13 +5,27 @@
 
   import { flip } from "svelte/animate";
 
-  export let box;
+  import { firestore } from "../../service/firebase.js";
+
+  const removeTask = event => {
+    const { id } = event.detail;
+    firestore
+      .collection("tasks")
+      .doc(id)
+      .delete();
+  };
+
+  export let uid;
+  export let id;
+  export let name;
+  export let color;
+  export let time;
 </script>
 
-<div style="--color:{box.color}">
-  <Delete taskId="{box.id}"></Delete>
-  <Name></Name>
-  <Time></Time>
+<div style="--color:{color}">
+  <Delete on:remove="{removeTask}" {id}></Delete>
+  <Name {id} {name}></Name>
+  <Time {id} {time}></Time>
 </div>
 
 <style>
